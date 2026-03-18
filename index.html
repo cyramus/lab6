@@ -2,10 +2,334 @@
 <html lang="ru">
 <head>
 <meta charset="UTF-8">
-<title>Git</title>
-<link rel="stylesheet" href="./style.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>49 лет вместе</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,700;1,400;1,600&family=Marck+Script&display=swap" rel="stylesheet">
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #f0e6f6;
+}
+
+.card {
+  width: 700px;
+  height: 980px;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #ff6fb7 0%, #ff9a3c 30%, #ffe04b 55%, #6fd9ff 80%, #b06eff 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Белый внутренний блок */
+.white-bg {
+  position: absolute;
+  inset: 22px;
+  background: rgba(255,255,255,0.88);
+  border-radius: 4px;
+}
+
+/* Цветочный бордер сверху и снизу */
+.flowers-top, .flowers-bottom {
+  position: absolute;
+  left: 0; right: 0;
+  display: flex;
+  justify-content: center;
+  gap: 4px;
+  z-index: 20;
+  font-size: 32px;
+  line-height: 1;
+}
+.flowers-top { top: 28px; }
+.flowers-bottom { bottom: 28px; }
+
+/* Боковые цветы */
+.flowers-left, .flowers-right {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  z-index: 20;
+  font-size: 26px;
+}
+.flowers-left { left: 30px; }
+.flowers-right { right: 30px; }
+
+/* Рамка */
+.border-line {
+  position: absolute;
+  inset: 58px;
+  border: 2px solid rgba(255,100,180,0.35);
+  border-radius: 2px;
+  z-index: 5;
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 80px;
+  gap: 0;
+}
+
+.congrats-label {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 15px;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  color: #e0559a;
+  margin-bottom: 14px;
+  opacity: 0;
+  animation: fadeIn 1s ease 0.2s forwards;
+}
+
+.roses-emoji {
+  font-size: 36px;
+  margin-bottom: 10px;
+  opacity: 0;
+  animation: bounceIn 0.8s ease 0.5s forwards;
+  display: flex;
+  gap: 6px;
+}
+
+.names {
+  font-family: 'Marck Script', cursive;
+  font-size: 68px;
+  line-height: 1.15;
+  color: #c2006e;
+  text-shadow: 2px 3px 0px rgba(255,120,180,0.25);
+  margin: 8px 0 4px;
+  opacity: 0;
+  animation: fadeInUp 1s ease 0.7s forwards;
+}
+
+.ampersand {
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 44px;
+  color: #ff8c00;
+  display: block;
+  line-height: 1;
+}
+
+.divider-hearts {
+  font-size: 18px;
+  color: #ff6fb7;
+  letter-spacing: 8px;
+  margin: 14px 0;
+  opacity: 0;
+  animation: fadeIn 1s ease 1s forwards;
+}
+
+.years-block {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 4px 0 12px;
+  opacity: 0;
+  animation: scaleIn 0.8s ease 1.1s forwards;
+}
+
+.years-number {
+  font-family: 'Cormorant Garamond', serif;
+  font-weight: 700;
+  font-size: 130px;
+  line-height: 1;
+  background: linear-gradient(135deg, #ff3c9e 0%, #ff8c00 50%, #ffd700 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  filter: drop-shadow(0 4px 12px rgba(255,60,158,0.3));
+}
+
+.years-text {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 22px;
+  font-style: italic;
+  color: #ff6090;
+  letter-spacing: 4px;
+  margin-top: -8px;
+}
+
+.years-note {
+  font-size: 13px;
+  letter-spacing: 3px;
+  color: #ffaa00;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.rainbow-line {
+  width: 320px;
+  height: 3px;
+  background: linear-gradient(to right, #ff6fb7, #ff9a3c, #ffe04b, #6fd9ff, #b06eff);
+  border-radius: 2px;
+  margin: 16px 0;
+  opacity: 0;
+  animation: fadeIn 1s ease 1.3s forwards;
+}
+
+.message {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  line-height: 1.9;
+  color: #5a2060;
+  max-width: 460px;
+  opacity: 0;
+  animation: fadeInUp 1s ease 1.4s forwards;
+}
+
+.message b {
+  color: #c2006e;
+  font-style: normal;
+}
+.bottom-emoji {
+  font-size: 30px;
+  margin-top: 18px;
+  opacity: 0;
+  animation: bounceIn 1s ease 1.7s forwards;
+  display: flex;
+  gap: 8px;
+}
+
+.wish-tag {
+  margin-top: 14px;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 14px;
+  letter-spacing: 4px;
+  color: #b06eff;
+  text-transform: uppercase;
+  opacity: 0;
+  animation: fadeIn 1s ease 2s forwards;
+}
+
+/* Конфетти */
+.confetti-wrap {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+  overflow: hidden;
+}
+
+.dot {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0;
+  animation: confettiFall var(--dur) ease var(--delay) infinite;
+}
+
+@keyframes confettiFall {
+  0%   { opacity: 0; transform: translateY(-10px) rotate(0deg); }
+  10%  { opacity: 0.9; }
+  90%  { opacity: 0.5; }
+  100% { opacity: 0; transform: translateY(30px) rotate(360deg); }
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes fadeInUp {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes bounceIn {
+  0%   { opacity: 0; transform: scale(0.4); }
+  60%  { opacity: 1; transform: scale(1.15); }
+  100% { opacity: 1; transform: scale(1); }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.8); }
+  to   { opacity: 1; transform: scale(1); }
+}
+</style>
 </head>
 <body>
-<header class="header"></header>
+<div class="card">
+  <div class="white-bg"></div>
+  <div class="border-line"></div>
+
+  <!-- Конфетти -->
+  <div class="confetti-wrap" id="confetti"></div>
+
+  <!-- Цветы по краям -->
+  <div class="flowers-top">🌸🌼🌺🌻🌹🌸🌼🌺🌻🌹🌸🌼🌺</div>
+  <div class="flowers-bottom">🌹🌺🌼🌸🌻🌹🌺🌼🌸🌻🌹🌺🌼</div>
+  <div class="flowers-left">🌷<br>🌸<br>🌼<br>🌺<br>🌻<br>🌷<br>🌸</div>
+  <div class="flowers-right">🌸<br>🌷<br>🌻<br>🌺<br>🌼<br>🌸<br>🌷</div>
+
+  <div class="content">
+    <div class="congrats-label">Поздравляем с годовщиной!</div>
+
+    <div class="roses-emoji">🌹🌹🌹</div>
+
+    <div class="names">
+      Галя<br>
+      <span class="ampersand">&amp;</span>
+      Толя
+    </div>
+
+    <div class="divider-hearts">♥ ♥ ♥ ♥ ♥</div>
+
+    <div class="years-block">
+      <div class="years-number">49</div>
+      <div class="years-text">лет вместе</div>
+      <div class="years-note">✨ год до золотой свадьбы ✨</div>
+    </div>
+
+    <div class="rainbow-line"></div>
+
+    <div class="message">
+      Дорогие наши! Сорок девять лет —
+      это <b>настоящее чудо любви и верности</b>.
+      Каждый год с вами — это подарок для всей семьи.
+      <br><br>
+      Желаем вам здоровья, радости
+      и ещё много-много счастливых лет рядом! 🎉
+    </div>
+
+    <div class="bottom-emoji">💛 💖 💛 💖 💛</div>
+
+    <div class="wish-tag">С любовью и теплом 💐</div>
+  </div>
+</div>
+
+<script>
+const wrap = document.getElementById('confetti');
+const colors = ['#ff6fb7','#ff9a3c','#ffe04b','#6fd9ff','#b06eff','#ff3c9e','#00e5a0'];
+for (let i = 0; i < 38; i++) {
+  const d = document.createElement('div');
+  d.className = 'dot';
+  const size = 5 + Math.random() * 8;
+  d.style.cssText = 
+    width:${size}px; height:${size}px;
+    background:${colors[Math.floor(Math.random()*colors.length)]};
+    left:${Math.random()*100}%;
+    top:${Math.random()*100}%;
+    --dur:${4+Math.random()*6}s;
+    --delay:${Math.random()*5}s;
+    border-radius:${Math.random()>0.5?'50%':'3px'};
+  ;
+  wrap.appendChild(d);
+}
+</script>
 </body>
 </html>
